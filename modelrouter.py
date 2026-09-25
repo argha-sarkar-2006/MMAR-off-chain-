@@ -107,7 +107,7 @@ def route_text(prompt, log=print):
 # PIPELINE
 # ============================================================
 
-def run(image_path=None, prompt="", use_web=True, log=print):
+def run(image_path=None, prompt="", use_web=True, db_path=None, user_id=None, log=print):
     """Run the pipeline and return a dict describing what happened.
 
     Keys: route, intent, summary, problem_statement, language, sources,
@@ -145,6 +145,8 @@ def run(image_path=None, prompt="", use_web=True, log=print):
         prompt or DEFAULT_IMAGE_PROMPT,
         image_description=image_description,
         use_web=use_web,
+        db_path=db_path,
+        user_id=user_id,
         log=log,
     )
 

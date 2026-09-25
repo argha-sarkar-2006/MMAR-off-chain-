@@ -98,11 +98,30 @@ def _call_model(messages, use_web=True, max_tokens=None):
     # catch - only ReasoningError. Converting here means a timeout surfaces as a
     # clean message instead of a traceback from the router.
     try:
+        if use_web:
+            try:
+                return llm.openrouter_chat(
+                    messages,
+                    model=config.REASONING_MODEL,
+                    max_tokens=max_tokens,
+                    plugins=[{"id": "web"}],
+                )
+            except llm.LLMError as web_error:
+                # If account has no paid credits for OpenRouter web plugin (402), retry without it
+                if "402" in str(web_error) or "Insufficient credits" in str(web_error):
+                    return llm.openrouter_chat(
+                        messages,
+                        model=config.REASONING_MODEL,
+                        max_tokens=max_tokens,
+                        plugins=None,
+                    )
+                raise
+
         return llm.openrouter_chat(
             messages,
             model=config.REASONING_MODEL,
             max_tokens=max_tokens,
-            plugins=[{"id": "web"}] if use_web else None,
+            plugins=None,
         )
 
     except llm.LLMError as error:
@@ -202,6 +221,7 @@ def reason(
     use_web=True,
     use_knowledge=True,
     db_path=None,
+    user_id=None,
     log=print,
 ):
     """Research a prompt and return a structured result.
@@ -218,7 +238,7 @@ def reason(
 
     if use_knowledge:
         query = " ".join(part for part in (prompt, image_description) if part)
-        knowledge_context = knowledge.context_for(query, limit=5, db_path=db_path)
+        knowledge_context = knowledge.context_for(query, limit=5, db_path=db_path, user_id=user_id)
 
         log(
             f"  knowledge base: {len(knowledge_context)} characters retrieved"

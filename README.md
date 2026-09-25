@@ -55,13 +55,39 @@ A multi-stage AI workbench that routes and processes tasks across vision analysi
 
 ## Usage
 
-### Interactive Mode
+### 1. Web Frontend Mode (3rd-Route)
+
+3rd-Route provides a modern React-based UI inspired by clean, minimalist desktop AI workbenches, with Auth0 authentication and multi-stage pipeline controls.
+
+1. **Start the local API backend server**:
+   - On Windows (PowerShell):
+     ```powershell
+     python server.py
+     ```
+   - On Linux/macOS:
+     ```bash
+     python3 server.py
+     ```
+   The backend API listens on `http://localhost:8000`.
+
+2. **Start the React frontend**:
+   - In a separate terminal:
+     ```bash
+     cd frontend
+     npm install
+     npm run dev
+     ```
+   Open `http://localhost:5173` in your browser.
+
+---
+
+### 2. Interactive Terminal Mode
 Run the router interactively:
 ```bash
 python modelrouter.py
 ```
 
-### CLI Mode
+### 3. CLI Mode
 Submit a text query directly:
 ```bash
 python modelrouter.py --text "Explain how vector databases work."
@@ -77,8 +103,53 @@ Ingest a document into the local knowledge base:
 python knowledge.py --ingest "path/to/document.pdf"
 ```
 
+---
+
+## Release & Local Distribution
+
+3rd-Route is designed as a **local application** distributed as release archives (`.zip`, `.tar.gz`). Users download the release archive, extract it locally, configure their keys, and run it on their own machines.
+
+### Release Installation Flow
+
+1. **Download & Extract** the latest release archive (`3rd-Route-v1.0.0.zip`) from GitHub Releases.
+2. **Create and activate the Python virtual environment**:
+   - PowerShell:
+     ```powershell
+     python -m venv .venv
+     .venv\Scripts\activate
+     ```
+   - Bash (Linux/macOS):
+     ```bash
+     python3 -m venv .venv
+     source .venv/bin/activate
+     ```
+3. **Install Python backend dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Configure backend environment variables**:
+   ```bash
+   cp .env.example .env
+   ```
+   Provide your `OPENROUTER_API_KEY` and `OLLAMA_API_KEY`.
+5. **Install and configure frontend**:
+   ```bash
+   cd frontend
+   npm install
+   cp .env.example .env.local
+   ```
+   Configure `VITE_API_BASE_URL=http://localhost:8000` and Auth0 keys (`VITE_AUTH0_DOMAIN`, `VITE_AUTH0_CLIENT_ID`).
+6. **Start the application**:
+   - Terminal 1: `python server.py`
+   - Terminal 2: `cd frontend && npm run dev`
+7. Open `http://localhost:5173` in your web browser.
+
+---
+
 ## Project Structure
 
+- `frontend/`: React + Vite + TypeScript web interface ("3rd-Route").
+- `server.py`: Local FastAPI bridge connecting the frontend to the MMAR pipeline.
 - `modelrouter.py`: Central orchestrator and task router.
 - `vision.py`: Image analysis and OCR pipeline.
 - `reasoning.py`: Web research, document RAG, and problem synthesis.
@@ -86,3 +157,4 @@ python knowledge.py --ingest "path/to/document.pdf"
 - `knowledge.py`: Document ingestion, chunking, and SQLite storage.
 - `llm.py`: Shared transport for OpenRouter calls.
 - `config.py`: Centralized configuration, endpoints, and credentials loader.
+

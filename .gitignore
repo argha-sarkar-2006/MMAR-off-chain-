@@ -1,8 +1,10 @@
 # Secrets — never commit
 .env
 
-# Local knowledge base
+# Local knowledge base & databases
 knowledge.db
+*.db
+data/
 
 # Python
 __pycache__/
@@ -10,6 +12,14 @@ __pycache__/
 
 # Virtual environment
 test/
+.venv/
+venv/
+
+# Frontend builds and dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
 
 # macOS
 .DS_Store

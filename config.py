@@ -56,8 +56,8 @@ VISION_OPENROUTER_MODELS = [
     "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
 ]
 
-# Verified: responds in ~1s at zero cost, and supports the OpenRouter web plugin.
-REASONING_MODEL = "nex-agi/nex-n2.5-pro:free"
+# Active free reasoning model on OpenRouter
+REASONING_MODEL = "nvidia/nemotron-3.5-lightning:free"
 
 CODING_MODEL = "gpt-oss:20b"
 

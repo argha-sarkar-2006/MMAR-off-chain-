@@ -7,6 +7,7 @@ the answer with no visible error. Retrieving locally is both reliable and
 cheaper.
 """
 
+import hashlib
 import os
 import re
 import sqlite3
@@ -52,31 +53,52 @@ END;
 
 
 # ============================================================
-# CONNECTION
+# ACCOUNT ISOLATION & CONNECTION
 # ============================================================
 
-def connect(db_path=None):
-    connection = sqlite3.connect(Path(db_path) if db_path else config.KNOWLEDGE_DB)
+def get_user_db_path(user_id=None):
+    """Return an account-isolated SQLite database path for the given user.
+
+    If user_id is empty or default, returns the fallback config.KNOWLEDGE_DB.
+    Otherwise returns an isolated data/knowledge/knowledge_<safe_id>.db.
+    """
+    if not user_id or str(user_id).strip().lower() in ("default", "anonymous", "null", "none", ""):
+        return config.KNOWLEDGE_DB
+
+    cleaned = str(user_id).strip()
+    safe_hash = hashlib.sha256(cleaned.encode("utf-8")).hexdigest()[:16]
+    clean_prefix = re.sub(r"[^a-zA-Z0-9_-]", "_", cleaned)[:24]
+
+    knowledge_dir = config.PROJECT_ROOT / "data" / "knowledge"
+    knowledge_dir.mkdir(parents=True, exist_ok=True)
+    return knowledge_dir / f"knowledge_{clean_prefix}_{safe_hash}.db"
+
+
+def connect(db_path=None, user_id=None):
+    if db_path is None and user_id:
+        db_path = get_user_db_path(user_id)
+    path = Path(db_path) if db_path else config.KNOWLEDGE_DB
+    connection = sqlite3.connect(path)
     connection.row_factory = sqlite3.Row
     connection.executescript(SCHEMA)
     return connection
 
 
-def init_db(db_path=None):
-    connect(db_path).close()
+def init_db(db_path=None, user_id=None):
+    connect(db_path=db_path, user_id=user_id).close()
 
 
 # ============================================================
 # WRITING
 # ============================================================
 
-def add_document(source, title, content, db_path=None):
+def add_document(source, title, content, db_path=None, user_id=None):
     content = (content or "").strip()
 
     if not content:
         raise ValueError("Refusing to store an empty document.")
 
-    connection = connect(db_path)
+    connection = connect(db_path=db_path, user_id=user_id)
 
     try:
         cursor = connection.execute(
@@ -98,8 +120,8 @@ def add_document(source, title, content, db_path=None):
         connection.close()
 
 
-def document_count(db_path=None):
-    connection = connect(db_path)
+def document_count(db_path=None, user_id=None):
+    connection = connect(db_path=db_path, user_id=user_id)
 
     try:
         return connection.execute("SELECT COUNT(*) FROM documents").fetchone()[0]
@@ -133,14 +155,14 @@ def _fts_expression(text):
     return " OR ".join(f'"{term}"*' for term in terms)
 
 
-def search(query, limit=5, db_path=None):
+def search(query, limit=5, db_path=None, user_id=None):
     """Return the best matching documents for a query, best first."""
     query = (query or "").strip()
 
     if not query:
         return []
 
-    connection = connect(db_path)
+    connection = connect(db_path=db_path, user_id=user_id)
 
     try:
         expression = _fts_expression(query)
@@ -180,9 +202,9 @@ def search(query, limit=5, db_path=None):
         connection.close()
 
 
-def context_for(query, limit=5, db_path=None):
+def context_for(query, limit=5, db_path=None, user_id=None):
     """Return knowledge-base hits formatted for injection into a prompt."""
-    hits = search(query, limit=limit, db_path=db_path)
+    hits = search(query, limit=limit, db_path=db_path, user_id=user_id)
 
     if not hits:
         return ""
@@ -264,7 +286,7 @@ def extract_pdf_text(pdf_path, log=print):
     return clean_text("\n\n".join(extracted))
 
 
-def ingest_pdf(pdf_path, title=None, db_path=None, log=print):
+def ingest_pdf(pdf_path, title=None, db_path=None, user_id=None, log=print):
     """Extract a PDF and store it in the knowledge base, chunk by chunk."""
     text = extract_pdf_text(pdf_path, log=log)
 
@@ -275,6 +297,9 @@ def ingest_pdf(pdf_path, title=None, db_path=None, log=print):
     chunks = chunk_text(text)
 
     log(f"  {len(text):,} characters -> {len(chunks)} chunk(s)")
+
+    if db_path is None and user_id:
+        db_path = get_user_db_path(user_id)
 
     return [
         add_document(
