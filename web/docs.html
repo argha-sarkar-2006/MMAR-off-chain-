@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation | 3rd-Route Sovereign AI Workbench</title>
+  <meta name="description" content="Comprehensive guides and technical documentation for 3rd-Route (MMAR) sovereign multimodal workbench.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       NAVBAR (7 Buttons: 1 Top-Left Logo, 6 Right-Half Buttons)
+       ====================================================================== -->
+  <header class="navbar-wrap">
+    <div class="container navbar">
+      <!-- 1. Logo button — root link, top left -->
+      <a href="index.html" class="nav-logo-btn" title="3rd-Route Home">
+        <img src="favicon.svg" alt="3rd-Route Emblem" class="nav-logo-icon">
+        <span class="nav-logo-text">
+          <span>3rd-Route</span>
+          <span class="nav-logo-badge">router</span>
+        </span>
+      </a>
+
+      <!-- Right half buttons: Home, About, Features, How It Works, Docs, Download -->
+      <nav class="nav-right" id="navRight">
+        <!-- 2. Home button = Logo button (root link) -->
+        <a href="index.html" class="nav-link">Home</a>
+
+        <!-- 3. About button = Showcase product & team members page -->
+        <a href="about.html" class="nav-link">About</a>
+
+        <!-- 4. Features = Anchor link to home page features section -->
+        <a href="index.html#features" class="nav-link">Features</a>
+
+        <!-- 5. How It Works = Anchor link to home page how-it-works section -->
+        <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+
+        <!-- 6. Docs = Page link button (Active) -->
+        <a href="docs.html" class="nav-link active">Docs</a>
+
+        <!-- 7. Download = Redirect to GitHub Releases page -->
+        <a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-/releases" target="_blank" rel="noopener noreferrer" class="nav-btn-download">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download
+        </a>
+      </nav>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Toggle Bar -->
+  <div class="docs-mobile-bar">
+    <button class="btn-toggle-docs" id="btnToggleDocs" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16M4 12h16M4 18h7"></path>
+      </svg>
+      <span>Browse Documentation Topics</span>
+    </button>
+  </div>
+
+  <!-- ======================================================================
+       SPLIT LAYOUT: 25% Left Static Sidebar, 75% Right Scrollable Documentation
+       ====================================================================== -->
+  <div class="docs-layout-wrap">
+    
+    <!-- LEFT 25% SIDEBAR (Static Navigation Contents) -->
+    <aside class="docs-sidebar" id="docsSidebar">
+      <!-- Search / Filter -->
+      <div class="docs-search-box">
+        <svg class="docs-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="docsSearchInput" class="docs-search-input" placeholder="Search documentation...">
+      </div>
+
+      <!-- Group 1: Getting Started -->
+      <div class="docs-nav-group">
+        <div class="docs-group-title">Getting Started</div>
+        <div class="docs-nav-item active" data-target="overview">
+          <span>Overview</span>
+        </div>
+        <div class="docs-nav-item" data-target="prerequisites">
+          <span>Prerequisites</span>
+        </div>
+        <div class="docs-nav-item" data-target="quickstart">
+          <span>Quickstart Setup</span>
+        </div>
+        <div class="docs-nav-item" data-target="release-distribution">
+          <span>Release Distribution</span>
+        </div>
+      </div>
+
+      <!-- Group 2: Pipeline Architecture -->
+      <div class="docs-nav-group">
+        <div class="docs-group-title">Pipelines &amp; Stages</div>
+        <div class="docs-nav-item" data-target="router-engine">
+          <span>1. Router Engine</span>
+        </div>
+        <div class="docs-nav-item" data-target="vision-stage">
+          <span>2. Vision &amp; OCR Stage</span>
+        </div>
+        <div class="docs-nav-item" data-target="reasoning-stage">
+          <span>3. Reasoning &amp; Web RAG</span>
+        </div>
+        <div class="docs-nav-item" data-target="coding-stage">
+          <span>4. Coding Stage</span>
+        </div>
+      </div>
+
+      <!-- Group 3: Knowledge Base -->
+      <div class="docs-nav-group">
+        <div class="docs-group-title">Knowledge Engine</div>
+        <div class="docs-nav-item" data-target="knowledge-base">
+          <span>SQLite FTS5 Architecture</span>
+        </div>
+        <div class="docs-nav-item" data-target="ingestion">
+          <span>Document Ingestion</span>
+        </div>
+      </div>
+
+      <!-- Group 4: Web UI & Backend -->
+      <div class="docs-nav-group">
+        <div class="docs-group-title">Web UI &amp; Server</div>
+        <div class="docs-nav-item" data-target="server-api">
+          <span>FastAPI Backend</span>
+        </div>
+        <div class="docs-nav-item" data-target="auth0-setup">
+          <span>Auth0 &amp; Session Isolation</span>
+        </div>
+      </div>
+
+      <!-- Group 5: CLI & Automation -->
+      <div class="docs-nav-group">
+        <div class="docs-group-title">CLI &amp; Automation</div>
+        <div class="docs-nav-item" data-target="cli-usage">
+          <span>Interactive &amp; CLI Mode</span>
+        </div>
+        <div class="docs-nav-item" data-target="config-reference">
+          <span>Configuration Reference</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT 75% SCROLLABLE CONTENT AREA -->
+    <main class="docs-content-area">
+      
+      <!-- ==================================================================
+           SECTION: OVERVIEW
+           ================================================================== -->
+      <article class="doc-section" id="overview">
+        <h1 class="doc-title">3rd-Route / MMAR Documentation</h1>
+        <p class="doc-lead">
+          Welcome to the official developer guide for 3rd-Route (Multimodal Multi-Agent Workbench), a sovereign, off-chain artificial intelligence routing platform.
+        </p>
+
+        <p class="doc-text">
+          3rd-Route routes and coordinates multi-stage tasks across:
+        </p>
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li><strong>Vision Stage:</strong> Reads architectural diagrams, UMLs, charts, and error screenshots with OCR and neural vision models.</li>
+          <li><strong>Reasoning Stage:</strong> Performs local RAG against ingested documents and conducts real-time web search for technical verification.</li>
+          <li><strong>Coding Stage:</strong> Generates tested, working code from technical specifications using Ollama Cloud or local models.</li>
+          <li><strong>Autonomous Router:</strong> Automatically inspects user intent, classifies query types, and manages pipeline execution flow.</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Key Sovereign Advantage:</strong> 3rd-Route runs locally on your computer. Your conversations, document chunks, and embeddings never leave your machine unless routed explicitly to the AI inference APIs you configure.
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: PREREQUISITES
+           ================================================================== -->
+      <article class="doc-section" id="prerequisites">
+        <h2 class="doc-heading">System Prerequisites</h2>
+        <p class="doc-text">
+          Ensure your workstation meets the following runtime requirements before running 3rd-Route:
+        </p>
+
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li><strong>Python 3.10 or higher:</strong> Required for the core orchestrator and FastAPI bridge.</li>
+          <li><strong>Node.js 18+ &amp; npm:</strong> Required for building the React frontend if running from source.</li>
+          <li><strong>Tesseract OCR:</strong> Required for local OCR text extraction from images and diagrams.</li>
+        </ul>
+
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin: 20px 0 10px;">Installing Tesseract OCR</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code># Ubuntu / Debian
+sudo apt-get update && sudo apt-get install -y tesseract-ocr
+
+# macOS (Homebrew)
+brew install tesseract
+
+# Windows
+# Download installer from official UB-Mannheim repository and add to PATH:
+# C:\Program Files\Tesseract-OCR</code></pre>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: QUICKSTART
+           ================================================================== -->
+      <article class="doc-section" id="quickstart">
+        <h2 class="doc-heading">Quickstart Setup</h2>
+        <p class="doc-text">
+          Follow these steps to set up the development environment from source:
+        </p>
+
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin: 16px 0 8px;">1. Clone Repository &amp; Virtual Environment</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code>git clone https://github.com/argha-sarkar-2006/MMAR-off-chain-.git
+cd MMAR-off-chain-
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate on Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+
+# Activate on Linux / macOS
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt</code></pre>
+        </div>
+
+        <h3 style="font-size: 1.1rem; font-weight: 700; margin: 16px 0 8px;">2. Configure Environment Variables</h3>
+        <p class="doc-text">
+          Copy the example environment configuration and supply your API keys:
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code>cp .env.example .env</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">env</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code># Primary model credentials
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+OPENROUTER_API_KEY_ALT=optional_alternate_key
+OLLAMA_API_KEY=your_ollama_cloud_key_here
+
+# Optional: Local Ollama endpoint
+OLLAMA_HOST=http://localhost:11434</code></pre>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: RELEASE DISTRIBUTION
+           ================================================================== -->
+      <article class="doc-section" id="release-distribution">
+        <h2 class="doc-heading">Release &amp; Local Distribution</h2>
+        <p class="doc-text">
+          3rd-Route is distributed as a self-contained local application release package. Users do not need complex cloud accounts:
+        </p>
+
+        <ol style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li>Download the latest release archive (<code>3rd-Route-v1.0.0.zip</code>) from <a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-/releases" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-weight: 600;">GitHub Releases</a>.</li>
+          <li>Extract the archive into your preferred folder on Windows, macOS, or Linux.</li>
+          <li>Configure your <code>.env</code> file with your OpenRouter and Ollama keys.</li>
+          <li>Start the local server and client workbench.</li>
+        </ol>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">powershell</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code># Terminal 1: Start Backend API
+python server.py
+
+# Terminal 2: Start Frontend Workbench
+cd frontend
+npm install
+npm run dev</code></pre>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: ROUTER ENGINE
+           ================================================================== -->
+      <article class="doc-section" id="router-engine">
+        <h2 class="doc-heading">1. Router Engine (<code>modelrouter.py</code>)</h2>
+        <p class="doc-text">
+          The central coordinator orchestrates requests. When a prompt arrives:
+        </p>
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li><strong>Image Inspection:</strong> If an image is attached, the Vision stage is triggered first.</li>
+          <li><strong>Intent Classification:</strong> Classifies whether the task requires web research, knowledge base retrieval, or code synthesis.</li>
+          <li><strong>Context Threading:</strong> Feeds the structured output of earlier stages directly into downstream modules.</li>
+        </ul>
+
+        <div class="arch-img-wrap" style="margin: 24px 0;">
+          <img src="flowchart.png" alt="MMAR Router Architecture Flow">
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: VISION STAGE
+           ================================================================== -->
+      <article class="doc-section" id="vision-stage">
+        <h2 class="doc-heading">2. Vision Stage (<code>vision.py</code>)</h2>
+        <p class="doc-text">
+          The vision engine handles visual comprehension:
+        </p>
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li>Uses <strong>Tesseract OCR</strong> to extract textual labels, error stacks, and system names directly.</li>
+          <li>Invokes <strong>Google Gemini Flash</strong> as the primary vision model for architectural reasoning.</li>
+          <li>Features automatic <strong>503 / 429 failover</strong> to OpenRouter vision models if primary inference is throttled.</li>
+        </ul>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: REASONING STAGE
+           ================================================================== -->
+      <article class="doc-section" id="reasoning-stage">
+        <h2 class="doc-heading">3. Reasoning &amp; Web RAG (<code>reasoning.py</code>)</h2>
+        <p class="doc-text">
+          The reasoning stage synthesizes facts before coding begins:
+        </p>
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li>Queries local <code>knowledge.db</code> for matching documents using SQLite FTS5 BM25 scoring.</li>
+          <li>Executes web search plugins via OpenRouter to retrieve latest SDK documentation and real-world patterns.</li>
+          <li>Generates a clean, unambiguous technical specification for the coding model.</li>
+        </ul>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: CODING STAGE
+           ================================================================== -->
+      <article class="doc-section" id="coding-stage">
+        <h2 class="doc-heading">4. Coding Stage (<code>coding.py</code>)</h2>
+        <p class="doc-text">
+          The coding stage executes pure software implementation:
+        </p>
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li>Connects to Ollama Cloud models (such as <code>gpt-oss:20b</code>) or local Ollama instances.</li>
+          <li>Accepts structured inputs from the reasoning stage to write idiomatic, bug-free, fully typed source code.</li>
+          <li>Appends execution instructions, unit tests, and runtime requirements.</li>
+        </ul>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: KNOWLEDGE BASE
+           ================================================================== -->
+      <article class="doc-section" id="knowledge-base">
+        <h2 class="doc-heading">SQLite FTS5 Knowledge Base</h2>
+        <p class="doc-text">
+          Rather than relying on heavy vector database servers, 3rd-Route uses SQLite with the <strong>FTS5 (Full-Text Search)</strong> extension:
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code># Ingesting a document into local knowledge base
+python knowledge.py --ingest "path/to/spec.pdf"
+
+# Querying the knowledge base directly
+python knowledge.py --query "How does the caching tier work?"</code></pre>
+        </div>
+
+        <div class="callout tip">
+          <strong>Performance Note:</strong> SQLite FTS5 queries execute in sub-millisecond timeframes, require 0 megabytes of extra background memory, and can be backed up as a single file: <code>knowledge.db</code>.
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: INGESTION
+           ================================================================== -->
+      <article class="doc-section" id="ingestion">
+        <h2 class="doc-heading">Document Ingestion Pipeline</h2>
+        <p class="doc-text">
+          Ingesting reference material into 3rd-Route creates a private, isolated corpus. The system parses multi-format documents, splits them into semantic paragraphs, computes deterministic content hashes to prevent duplicates, and populates the SQLite FTS5 virtual index:
+        </p>
+
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li><strong>Supported File Formats:</strong> PDF (<code>.pdf</code>), Markdown (<code>.md</code>), Plain Text (<code>.txt</code>), JSON, and source code files.</li>
+          <li><strong>Deduplication:</strong> SHA-256 content hashing skips redundant re-ingestion of unmodified files.</li>
+          <li><strong>Account Isolation:</strong> When Auth0 is enabled, files are automatically assigned to the authenticated user's isolated database namespace.</li>
+        </ul>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code># Ingesting multiple files via CLI
+python knowledge.py --ingest "docs/architecture.pdf"
+python knowledge.py --ingest "README.md"
+
+# Checking ingested documents in database
+python knowledge.py --list</code></pre>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: FASTAPI SERVER
+           ================================================================== -->
+      <article class="doc-section" id="server-api">
+        <h2 class="doc-heading">FastAPI Web Server (<code>server.py</code>)</h2>
+        <p class="doc-text">
+          The backend API bridges the React workbench to the underlying Python pipelines:
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code>POST /api/chat          - Submit multimodal query and stream pipeline results
+GET  /api/health        - Verify backend readiness and active models
+POST /api/knowledge     - Ingest document (PDF, TXT, MD) into isolated account DB
+GET  /api/models        - Fetch available model options and routing modes</code></pre>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: AUTH0 CONFIGURATION
+           ================================================================== -->
+      <article class="doc-section" id="auth0-setup">
+        <h2 class="doc-heading">Auth0 &amp; Session Isolation</h2>
+        <p class="doc-text">
+          3rd-Route includes integrated Auth0 authentication support for multi-user workstations:
+        </p>
+        <ul style="padding-left: 24px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">
+          <li>Configure Auth0 credentials directly in <code>frontend/.env.local</code> or through the in-app Setup modal.</li>
+          <li>Each authenticated user account receives an isolated chat history and private knowledge space.</li>
+          <li>Optional guest mode allows instant offline development without an Auth0 account.</li>
+        </ul>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: CLI & AUTOMATION
+           ================================================================== -->
+      <article class="doc-section" id="cli-usage">
+        <h2 class="doc-heading">CLI &amp; Headless Mode</h2>
+        <p class="doc-text">
+          Run 3rd-Route in headless automation scripts or interactive terminal sessions:
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code># 1. Interactive terminal loop
+python modelrouter.py
+
+# 2. Single text query
+python modelrouter.py --text "Explain how vector databases work."
+
+# 3. Vision + prompt analysis
+python modelrouter.py --image "diagram.png" --prompt "Explain this architecture"</code></pre>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           SECTION: CONFIG REFERENCE
+           ================================================================== -->
+      <article class="doc-section" id="config-reference">
+        <h2 class="doc-heading">Configuration Reference (<code>config.py</code>)</h2>
+        <p class="doc-text">
+          All configuration parameters are centrally validated:
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <pre><code># Available configuration variables in config.py
+OPENROUTER_API_KEY      # API key for OpenRouter inference
+OLLAMA_API_KEY          # API key for Ollama Cloud
+DEFAULT_VISION_MODEL    # google/gemini-2.0-flash-exp:free or similar
+DEFAULT_CODING_MODEL    # gpt-oss:20b
+MAX_RETRIES             # Fallback retry count (default: 3)
+REQUEST_TIMEOUT         # Timeout in seconds (default: 45)</code></pre>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo-btn" style="color: #ffffff;">
+            <img src="favicon.svg" alt="3rd-Route Emblem" class="nav-logo-icon">
+            <span class="nav-logo-text">
+              <span>3rd-Route</span>
+              <span class="nav-logo-badge">router</span>
+            </span>
+          </a>
+          <p>
+            The sovereign multimodal multi-agent workbench built for developers, security-conscious engineers, and AI pioneers.
+          </p>
+        </div>
+
+        <div class="footer-nav">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="index.html#hero">Home</a></li>
+              <li><a href="index.html#explore-more">Explore More</a></li>
+              <li><a href="index.html#features">Features</a></li>
+              <li><a href="index.html#how-it-works">How It Works</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="docs.html">Documentation</a></li>
+              <li><a href="about.html">About &amp; Team</a></li>
+              <li><a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-/releases" target="_blank" rel="noopener noreferrer">Releases</a></li>
+              <li><a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-" target="_blank" rel="noopener noreferrer">Source Code</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Pipelines</h4>
+            <ul>
+              <li><a href="docs.html#vision-stage">Vision &amp; OCR</a></li>
+              <li><a href="docs.html#reasoning-stage">Reasoning &amp; Web RAG</a></li>
+              <li><a href="docs.html#coding-stage">Code Generation</a></li>
+              <li><a href="docs.html#knowledge-base">SQLite FTS5 Storage</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 3rd-Route (MMAR) Project. Open source software released under MIT License.</div>
+        <div>Off-chain &bull; Multimodal &bull; Multi-Agent &bull; Sovereign</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

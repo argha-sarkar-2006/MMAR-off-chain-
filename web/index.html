@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3rd-Route | Sovereign Multimodal AI Workbench</title>
+  <meta name="description"
+    content="A private, multi-stage AI workbench routing tasks across vision, local SQLite FTS5 knowledge, web reasoning, and code generation.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ======================================================================
+       NAVBAR (7 Buttons: 1 Top-Left Logo, 6 Right-Half Buttons)
+       ====================================================================== -->
+  <header class="navbar-wrap">
+    <div class="container navbar">
+      <!-- 1. Logo button — root link, top left -->
+      <a href="index.html" class="nav-logo-btn" title="3rd-Route Home">
+        <img src="favicon.svg" alt="3rd-Route Emblem" class="nav-logo-icon">
+        <span class="nav-logo-text">
+          <span>3rd-Route</span>
+          <span class="nav-logo-badge">router</span>
+        </span>
+      </a>
+
+      <!-- Right half buttons: Home, About, Features, How It Works, Docs, Download -->
+      <nav class="nav-right" id="navRight">
+        <!-- 2. Home button = Logo button (root link) -->
+        <a href="index.html" class="nav-link active">Home</a>
+
+        <!-- 3. About button = Showcase product & team members page -->
+        <a href="about.html" class="nav-link">About</a>
+
+        <!-- 4. Features = Anchor link to section right after Explore More -->
+        <a href="#features" class="nav-link">Features</a>
+
+        <!-- 5. How It Works = Anchor link to section right after Features -->
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+
+        <!-- 6. Docs = Page link button with 25% static nav & scrollable docs -->
+        <a href="docs.html" class="nav-link">Docs</a>
+
+        <!-- 7. Download = Redirect to GitHub Releases page -->
+        <a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-/releases" target="_blank"
+          rel="noopener noreferrer" class="nav-btn-download">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download
+        </a>
+      </nav>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       HERO SECTION
+       ====================================================================== -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <h1 class="hero-title" style="color: #000000;">
+        Own your intelligence.<br>
+        Autonomous multimodal routing.
+      </h1>
+
+      <p class="hero-subtitle">
+        A sovereign AI workbench that runs entirely in your control. Intelligently orchestrates Vision analysis, local
+        SQLite FTS5 reasoning, web research, and automated code generation with zero vendor lock-in.
+      </p>
+
+      <div class="hero-actions">
+        <!-- Download CTA -->
+        <a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-/releases" target="_blank"
+          rel="noopener noreferrer" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download Free
+        </a>
+
+        <!-- Explore More (Anchor Link to section right below Hero) -->
+        <a href="#explore-more" class="btn-explore">
+          <span>Explore More</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+        </a>
+
+        <a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-" target="_blank" rel="noopener noreferrer"
+          class="btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
+          Open Source GitHub
+        </a>
+      </div>
+
+      <!-- 3rd-Route Workbench UI Showcase -->
+      <div class="hero-mockup-wrapper">
+        <div class="hero-mockup-window">
+          <img src="image01.png" alt="3rd-Route Sovereign AI Workbench" style="width: 100%; height: auto; display: block;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       METRICS & SOCIAL PROOF STRIP
+       ====================================================================== -->
+  <section class="proof-section">
+    <div class="container">
+      <div class="proof-label">Designed for high-throughput sovereign intelligence</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>3 Stages</h3>
+          <p>Vision, Reasoning, &amp; Code Generation</p>
+        </div>
+        <div class="stat-item">
+          <h3>100%</h3>
+          <p>Local Document &amp; Session Isolation</p>
+        </div>
+        <div class="stat-item">
+          <h3>SQLite FTS5</h3>
+          <p>Zero-vector Instant Keyword Search</p>
+        </div>
+        <div class="stat-item">
+          <h3>0 Lock-in</h3>
+          <p>OpenRouter, Gemini, &amp; Ollama Cloud</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       "EXPLORE MORE" SECTION
+       (Directly below Hero section. Internal ID: explore-more)
+       ====================================================================== -->
+  <section class="explore-more-section" id="explore-more">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Deep Architectural Capabilities</span>
+        <h2 class="section-title">No complex setup.<br>Preconfigured for multi-agent intelligence.</h2>
+        <p class="section-desc">
+          3rd-Route breaks the boundaries of conventional monolithic assistants. Instead of sending raw prompts to a
+          single model, our intelligent router decomposes your problem and delegates each phase to specialized neural
+          pipelines.
+        </p>
+      </div>
+
+      <!-- Interactive Accordion List (Inspired by AnythingLLM reference) -->
+      <div class="accordion-list">
+        <!-- Accordion 1 -->
+        <div class="accordion-item active">
+          <button class="accordion-header" type="button">
+            <div class="accordion-header-left">
+              <div class="accordion-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </div>
+              <span>Document Knowledge &amp; Local SQLite FTS5 RAG</span>
+            </div>
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            Every document you ingest becomes an instant, searchable extension of your agent's knowledge base without
+            leaving your machine. 3rd-Route uses SQLite Full-Text Search (FTS5) with BM25 ranking to retrieve precise
+            architectural specifications, code snippets, and research notes in sub-millisecond query cycles.
+            <br>
+            <a href="docs.html#knowledge-base" class="accordion-link">
+              Learn more about Document Knowledge &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Accordion 2 -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            <div class="accordion-header-left">
+              <div class="accordion-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <span>Web-Augmented Reasoning &amp; Research</span>
+            </div>
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            When your local documents do not have the answer, the Reasoning Stage triggers live web exploration through
+            OpenRouter. It aggregates external API documentation, validates package versions, synthesizes key findings,
+            and feeds verified context directly into the downstream code generator.
+            <br>
+            <a href="docs.html#reasoning-stage" class="accordion-link">
+              Explore the Reasoning Pipeline &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Accordion 3 -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            <div class="accordion-header-left">
+              <div class="accordion-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </div>
+              <span>Multimodal Vision &amp; OCR Analysis</span>
+            </div>
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            Upload system diagrams, UML charts, software UI screenshots, or raw error logs. The Vision Stage employs
+            Tesseract OCR alongside Google Gemini Vision (with automatic fallback to OpenRouter vision models) to parse
+            text, node relationships, and UI component hierarchies seamlessly.
+            <br>
+            <a href="docs.html#vision-stage" class="accordion-link">
+              View Vision &amp; OCR Documentation &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Accordion 4 -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            <div class="accordion-header-left">
+              <div class="accordion-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
+              <span>Autonomous Dynamic Model Selection</span>
+            </div>
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            You don't need to manually decide which model handles your query. <code>modelrouter.py</code> uses
+            intelligent intent classification to inspect inputs and coordinate execution order: determining whether
+            image analysis is required, whether RAG is relevant, and when code generation should be invoked.
+            <br>
+            <a href="docs.html#router-engine" class="accordion-link">
+              Read how the Router works &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Accordion 5 -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            <div class="accordion-header-left">
+              <div class="accordion-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <span>Automated Code Synthesis (Ollama Cloud &amp; Local)</span>
+            </div>
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            Produce working code directly from verified technical specifications. The Coding Stage hooks into Ollama
+            Cloud models (such as <code>gpt-oss:20b</code>) or your self-hosted LLM endpoints to write clean, typed,
+            modular code complete with unit tests and deployment instructions.
+            <br>
+            <a href="docs.html#coding-stage" class="accordion-link">
+              Explore Code Generation features &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       FEATURES SECTION
+       (Navigated to by navbar "Features". Positioned right after Explore More)
+       ====================================================================== -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <!-- Dark High-Contrast Showcase Card (Inspired by AnythingLLM dark card) -->
+      <div class="dark-showcase-card">
+        <div class="dark-showcase-header">
+          <div class="dark-tag">Privacy &amp; Sovereignty First</div>
+          <h2 class="dark-showcase-title">Your workspace never leaves your device.</h2>
+          <p class="dark-showcase-desc">
+            Unlike closed commercial cloud platforms that train models on your enterprise secrets and source code,
+            3rd-Route stores databases, vector contexts, chat logs, and ingested documents locally in self-contained
+            SQLite containers.
+          </p>
+        </div>
+
+        <ul class="dark-showcase-bullets">
+          <li class="dark-bullet-item">
+            <span class="dark-bullet-dot"></span>
+            <span><strong>Zero Cloud Telemetry</strong> &mdash; Chats and sessions run completely off-chain and
+              offline-ready.</span>
+          </li>
+          <li class="dark-bullet-item">
+            <span class="dark-bullet-dot"></span>
+            <span><strong>Isolated Workspaces</strong> &mdash; Auth0 authentication guarantees account-level knowledge
+              partitioning.</span>
+          </li>
+          <li class="dark-bullet-item">
+            <span class="dark-bullet-dot"></span>
+            <span><strong>Resilient Fallback</strong> &mdash; Automatic failover across Gemini and OpenRouter models
+              prevents downtime.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section-header">
+        <span class="section-tag">Core Features</span>
+        <h2 class="section-title">Engineered for Sovereign AI Engineers</h2>
+        <p class="section-desc">
+          Every component of 3rd-Route is built with modularity, performance, and developer freedom at its heart.
+        </p>
+      </div>
+
+      <!-- Feature Grid -->
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Account-Isolated Sessions</h3>
+            <p class="feature-card-desc">
+              Integrated Auth0 authentication separates conversations and knowledge bases per user account, ensuring
+              multi-tenant safety on shared machines.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-icon" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Dynamic Multi-Engine Router</h3>
+            <p class="feature-card-desc">
+              The router coordinates Vision, Reasoning, and Coding stages based on natural language intent or CLI flags
+              without hardcoded lock-in.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">SQLite FTS5 Knowledge Base</h3>
+            <p class="feature-card-desc">
+              Native SQLite full-text search indexing provides instantaneous document chunking, BM25 ranking, and
+              low-latency contextual recall.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+                <polyline points="7 8 10 10 7 12"></polyline>
+                <line x1="12" y1="12" x2="16" y2="12"></line>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Dual Web &amp; CLI Workflows</h3>
+            <p class="feature-card-desc">
+              Switch effortlessly between the sleek React desktop-inspired web UI and the headless command-line
+              interface for automation scripts.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Automatic 503 Fallback</h3>
+            <p class="feature-card-desc">
+              If the primary Gemini Vision provider experiences rate-limiting or outages, requests transparently cascade
+              to backup OpenRouter vision models.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">One-Click Release Packaging</h3>
+            <p class="feature-card-desc">
+              Packaged as clean release archives (.zip, .tar.gz) on GitHub Releases. Extract, plug in your keys, and
+              launch without external cloud setup.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       "HOW IT WORKS" SECTION
+       (Navigated to by navbar "How It Works". Positioned right after Features)
+       ====================================================================== -->
+  <section class="how-it-works-section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Quick Onboarding</span>
+        <h2 class="section-title">Up and running in a few clicks.</h2>
+        <p class="section-desc">
+          Get started with your sovereign AI workbench in under five minutes. No cloud accounts, no subscription fees,
+          and no complicated Docker orchestration required.
+        </p>
+      </div>
+
+      <!-- 4-Step Grid (Inspired by AnythingLLM reference: 1, 2, 3, 4 steps) -->
+      <div class="steps-grid">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Download the app</h3>
+          <div class="step-illustration">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <p class="step-desc">
+            Download the release archive from GitHub Releases. Unpack the files on macOS, Windows, or Linux.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Configure your keys</h3>
+          <div class="step-illustration">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <p class="step-desc">
+            Copy <code>.env.example</code> to <code>.env</code>. Add your OpenRouter and Ollama keys or connect local
+            models.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Ingest your docs</h3>
+          <div class="step-illustration">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <p class="step-desc">
+            Drop PDFs, Markdown, and TXT files into the workbench or use the CLI command
+            <code>knowledge.py --ingest</code>.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3 class="step-title">Orchestrate &amp; build</h3>
+          <div class="step-illustration">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <p class="step-desc">
+            Submit vision queries, analyze software architectures, and synthesize clean working code autonomously.
+          </p>
+        </div>
+      </div>
+
+      <!-- Architecture Callout Card -->
+      <div class="arch-card">
+        <div class="arch-header">
+          <div>
+            <h3 class="arch-title">Sovereign Call Flow &amp; Module Routing</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 4px;">
+              Direct invocation architecture: from entry orchestrator to vision, reasoning, and coding pipelines.
+            </p>
+          </div>
+          <span class="arch-badge">Live Call Flow Diagram</span>
+        </div>
+        <div class="arch-img-wrap">
+          <img src="flowchart.png" alt="Sovereign AI Workbench Architecture & Call Flow">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       CALL TO ACTION (CTA) SECTION
+       ====================================================================== -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="cta-title">Take control of your AI workflow today.</h2>
+        <p class="cta-desc">
+          Download the latest 3rd-Route release archive, configure your local environment, and experience sovereign
+          multimodal AI on your own terms.
+        </p>
+        <div class="cta-buttons">
+          <a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-/releases" target="_blank"
+            rel="noopener noreferrer" class="btn-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download v1.0.0 Release
+          </a>
+          <a href="docs.html" class="btn-outline-white">
+            <span>Read Documentation &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo-btn" style="color: #ffffff;">
+            <img src="favicon.svg" alt="3rd-Route Emblem" class="nav-logo-icon">
+            <span class="nav-logo-text">
+              <span>3rd-Route</span>
+              <span class="nav-logo-badge">router</span>
+            </span>
+          </a>
+          <p>
+            The sovereign multimodal multi-agent workbench built for developers, security-conscious engineers, and AI
+            pioneers.
+          </p>
+        </div>
+
+        <div class="footer-nav">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="index.html#hero">Home</a></li>
+              <li><a href="#explore-more">Explore More</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="docs.html">Documentation</a></li>
+              <li><a href="about.html">About &amp; Team</a></li>
+              <li><a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-/releases" target="_blank"
+                  rel="noopener noreferrer">Releases</a></li>
+              <li><a href="https://github.com/argha-sarkar-2006/MMAR-off-chain-" target="_blank"
+                  rel="noopener noreferrer">Source Code</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Pipelines</h4>
+            <ul>
+              <li><a href="docs.html#vision-stage">Vision &amp; OCR</a></li>
+              <li><a href="docs.html#reasoning-stage">Reasoning &amp; Web RAG</a></li>
+              <li><a href="docs.html#coding-stage">Code Generation</a></li>
+              <li><a href="docs.html#knowledge-base">SQLite FTS5 Storage</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 3rd-Route (MMAR) Project. Open source software released.</div>
+        <div>Off-chain &bull; Multimodal &bull; Multi-Agent &bull; Sovereign</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
